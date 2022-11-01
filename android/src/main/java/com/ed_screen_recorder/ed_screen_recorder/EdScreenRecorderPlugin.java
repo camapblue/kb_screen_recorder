@@ -151,7 +151,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     if (resultCode == Activity.RESULT_OK) {
-                        hbRecorder.startScreenRecording(data, resultCode, activity);
+                        hbRecorder.startScreenRecording(data, resultCode);
                     }
                 }
             }
@@ -176,7 +176,6 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
 
     @Override
     public void HBRecorderOnStart() {
-
         Log.e("Video Start:", "Start called");
         Map<Object, Object> dataMap = new HashMap<Object, Object>();
         dataMap.put("success", success);
@@ -233,6 +232,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
                     ? mediaProjectionManager.createScreenCaptureIntent()
                     : null;
             activity.startActivityForResult(permissionIntent, SCREEN_RECORD_REQUEST_CODE);
+
             return true;
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
