@@ -101,6 +101,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         this.flutterResult = result;
         if (call.method.equals("startRecordScreen")) {
+            Log.e("Channel Call:", "Start Recording");
             try {
                 isAudioEnabled = call.argument("audioenable");
                 fileName = call.argument("filename");
@@ -137,6 +138,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
         } else if (call.method.equals("resumeRecordScreen")) {
             hbRecorder.resumeScreenRecording();
         } else if (call.method.equals("stopRecordScreen")) {
+            Log.e("Channel Call:", "Stop Recording");
             endDate = call.argument("enddate");
             hbRecorder.stopScreenRecording();
         } else {
@@ -146,11 +148,11 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     if (resultCode == Activity.RESULT_OK) {
+                        Log.e("HBRecorder:", "Start Screen Recording");
                         hbRecorder.startScreenRecording(data, resultCode);
                     }
                 }
