@@ -23,7 +23,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -36,6 +36,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.HBiSoft:HBRecorder:2.0.5'
+    implementation 'com.github.HBiSoft:HBRecorder:2.0.4'
     implementation 'androidx.appcompat:appcompat:1.4.1'
 }

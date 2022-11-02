@@ -153,7 +153,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
                 if (data != null) {
                     if (resultCode == Activity.RESULT_OK) {
                         Log.e("HBRecorder:", "Start Screen Recording");
-                        hbRecorder.startScreenRecording(data, resultCode);
+                        hbRecorder.startScreenRecording(data, resultCode, activity);
                     }
                 }
             }
@@ -260,6 +260,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
         hbRecorder.setFileName(generateFileName(fileName, addTimeCode));
         if (dirPathToSave != null && dirPathToSave != "") {
             File dirFile = new File(dirPathToSave);
+            Log.e("HBRecorder:", "Output Path >> " + dirFile.getAbsolutePath());
             hbRecorder.setOutputPath(dirFile.getAbsolutePath());
             filePath = dirFile.getAbsolutePath() + "/" + generateFileName(fileName, addTimeCode);
         } else {
