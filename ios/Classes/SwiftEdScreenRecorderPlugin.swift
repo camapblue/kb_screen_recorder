@@ -22,6 +22,7 @@ public class SwiftEdScreenRecorderPlugin: NSObject, FlutterPlugin {
   var videoBitrate: Int?;
   var fileOutputFormat: String? = "";
   var fileExtension: String? = "";
+  var videoEncoder: String? = "";
   var success: Bool! = false;
   var videoHash: String! = "";
   var startDate: Int?;
@@ -50,6 +51,7 @@ public class SwiftEdScreenRecorderPlugin: NSObject, FlutterPlugin {
         self.videoBitrate=(args?["videobitrate"] as? Int)!
         self.fileOutputFormat=(args?["fileoutputformat"] as? String)!
         self.fileExtension=(args?["fileextension"] as? String)!
+        self.videoEncoder=(args?["videoencoder"] as? String)!
         self.videoHash=(args?["videohash"] as? String)!
         self.isProgress=Bool(true)
         self.eventName=String("startRecordScreen")

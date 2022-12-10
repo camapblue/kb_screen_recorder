@@ -54,6 +54,7 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
     int videoBitrate;
     String fileOutputFormat;
     String fileExtension;
+    String videoEncoder;
     boolean success;
     String videoHash;
     long startDate;
@@ -111,9 +112,10 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
                 videoBitrate = call.argument("videobitrate");
                 fileOutputFormat = call.argument("fileoutputformat");
                 fileExtension = call.argument("fileextension");
+                videoEncoder = call.argument("videoencoder");
                 videoHash = call.argument("videohash");
                 startDate = call.argument("startdate");
-                customSettings(videoFrame, videoBitrate, fileOutputFormat, addTimeCode, fileName);
+                customSettings(videoFrame, videoBitrate, fileOutputFormat, videoEncoder, addTimeCode, fileName);
                 if (dirPathToSave != null) {
                     System.out.println(">>>>>>>>>>> 1");
                     setOutputPath(addTimeCode, fileName, dirPathToSave);
@@ -242,11 +244,11 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
         }
     }
 
-    private void customSettings(int videoFrame, int videoBitrate, String fileOutputFormat, boolean addTimeCode,
+    private void customSettings(int videoFrame, int videoBitrate, String fileOutputFormat, String videoEncoder, boolean addTimeCode,
             String fileName) {
         hbRecorder.isAudioEnabled(isAudioEnabled);
         hbRecorder.setAudioSource("DEFAULT");
-        hbRecorder.setVideoEncoder("DEFAULT");
+        hbRecorder.setVideoEncoder(videoEncoder);
         hbRecorder.setVideoFrameRate(videoFrame);
         hbRecorder.setVideoBitrate(videoBitrate);
         hbRecorder.setOutputFormat(fileOutputFormat);

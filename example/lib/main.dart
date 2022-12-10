@@ -6,7 +6,8 @@ import 'package:ed_screen_recorder/ed_screen_recorder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+
+import 'file_extenstion.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,14 +50,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> startRecord({required String fileName}) async {
-    Directory? tempDir = await getApplicationDocumentsDirectory();
-    String? tempPath = tempDir.path;
+    final tempPath = await FileExtension.getTempDirectory();
+    
     try {
       var startResponse = await screenRecorder?.startRecordScreen(
         fileName: "Eren",
-        //Optional. It will save the video there when you give the file path with whatever you want.
-        //If you leave it blank, the Android operating system will save it to the gallery.
-        dirPathToSave: tempPath, 
+        dirPathToSave: tempPath,
+        videoEncoder: "H264",
         audioEnable: false,
       );
       setState(() {
@@ -84,6 +84,11 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _response = stopResponse;
       });
+      final file = stopResponse!['file'] as File?;
+      if (file != null) {
+        final length = await file.length();
+        debugPrint('FILE LENGTH >> $length');
+      }
     } on PlatformException {
       kDebugMode ? debugPrint("Error: An error occurred while stopping recording.") : null;
     }
@@ -116,6 +121,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("File: ${(_response?['file'] as File?)?.path}"),
+            Text("File Length: ${(_response?['file'] as File?)?.lengthSync()}"),
             Text("Status: ${(_response?['success']).toString()}"),
             Text("Event: ${_response?['eventname']}"),
             Text("Progress: ${(_response?['progressing']).toString()}"),
